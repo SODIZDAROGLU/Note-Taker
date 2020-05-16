@@ -51,10 +51,28 @@ fs.readFile("./db/db.json", "utf8", function (error, data) {
 });
 });
 
-
+//=========================================================
 app.delete("/api/notes/:id", function (req, res) {
-  console.log(req.params);
-  res.send(true);
+  const note = req.params.id;
+  fs.readFile("./db/db.json", "utf8", function (error, data){
+    
+    const notes= JSON.parse(data);
+   
+    for(const currentNote of notes)
+        if(currentNote.id == note)
+            notes.splice(notes.indexOf(currentNote),1);
+  
+    for(let i = 0; i < notes.length; i++)
+        notes[i].id = i + 1;
+    
+    fs.writeFile("./db/db.json", JSON.stringify(notes), function (err) {
+        if(err) throw err;
+        console.log("File Updated");
+    });
+   
+    return res.json(notes);
+});
+
 });
 
 
