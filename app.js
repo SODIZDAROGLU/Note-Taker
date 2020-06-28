@@ -25,7 +25,7 @@ app.get("/api/notes", function(req, res) {
         res.json(JSON.parse(data));
        });
     });
-//======================================================
+//=========================================================
 app.post("/api/notes", function (req, res) {
   console.log(req.body);
   const newNotes = req.body;
@@ -51,7 +51,7 @@ fs.readFile("./db/db.json", "utf8", function (error, data) {
 });
 });
 
-//=========================================================
+//============================================================
 app.delete("/api/notes/:id", function (req, res) {
   const note = req.params.id;
   fs.readFile("./db/db.json", "utf8", function (error, data){
